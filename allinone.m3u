@@ -13,15 +13,15 @@ http://cdn.163189.xyz/live/asam/stream.m3u8
 #EXTINF:-1 group-title="海外",澳视卫星
 http://cdn.163189.xyz/live/as/stream.m3u8
 #EXTINF:-1 group-title="海外",重温经典
-http://cdn3.132.us.kg/live/cwjd/stream.m3u8
+http://cdn3.163189.xyz/live/cwjd/stream.m3u8
 #EXTINF:-1 group-title="海外",凤凰资讯
 http://cdn3.132.us.kg/live/fhzx/stream.m3u8
 #EXTINF:-1 group-title="海外",TVB J1
-http://cdn3.132.us.kg/live/j1/stream.m3u8
+http://cdn3.163189.xyz/live/j1/stream.m3u8
 #EXTINF:-1 group-title="海外",广东珠江
-http://cdn2.132.us.kg/live/gdzj/stream.m3u8
+http://cdn2.163189.xyz/live/gdzj/stream.m3u8
 #EXTINF:-1 group-title="海外",广东体育
-http://cdn2.132.us.kg/live/gdty/stream.m3u8
+http://cdn2.163189.xyz/live/gdty/stream.m3u8
 #EXTM3U x-tvg-url="https://epg.v1.mk/fy.xml"
 #EXTINF:-1,tvg-id="CCTV1" tvg-name="CCTV1" tvg-logo="https://epg.v1.mk/logo/CCTV1.png" group-title="央视",cctv1-高码
 http://肥羊IP:35455/gaoma/cctv1.m3u8
