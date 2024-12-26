@@ -1,0 +1,24 @@
+name: Add execute permission
+
+on:
+  push:
+    paths:
+      - setup_hkdvb.sh
+
+jobs:
+  add-permission:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Add execute permission
+        run: chmod +x setup_hkdvb.sh
+
+      - name: Commit changes
+        run: |
+          git config --global user.email "you@example.com"
+          git config --global user.name "Your Name"
+          git add setup_hkdvb.sh
+          git commit -m "Add execute permission to setup_hkdvb.sh"
+          git push
