@@ -10,32 +10,46 @@ if [ "$(id -u)" -ne 0 ]; then
   exit 1
 fi
 
-# 获取或准备好HKDVB直播源token和服务器IP地址
 echo "请获取您的HKDVB直播源token，通过Telegram联系@hkanime_bot获取。"
-echo "请输入您的HKDVB直播源token:"
+echo "请输入您的HKDVB直播源token（按回车跳过）："
 read -r HKDVB_TOKEN
-echo "请输入您的服务器IP地址:"
+if [ -z "$HKDVB_TOKEN" ]; then
+  echo "未提供HKDVB直播源token，跳过此步骤。"
+fi
+
+echo "请输入您的服务器IP地址（此项必须提供）："
 read -r SERVER_IP
+if [ -z "$SERVER_IP" ]; then
+  echo "服务器IP地址未提供，脚本停止运行。"
+  exit 1
+fi
+
+echo "如果您需要使用肥羊IP，请输入肥羊IP（直接按回车可跳过）："
+read -r FEIYANG_IP
+
+# 如果未提供肥羊IP，则默认使用SERVER_IP
+if [ -z "$FEIYANG_IP" ]; then
+  FEIYANG_IP="$SERVER_IP"
+fi
+
+# 输出确认
+echo "HKDVB_TOKEN: $HKDVB_TOKEN"
+echo "SERVER_IP: $SERVER_IP"
+echo "FEIYANG_IP: $FEIYANG_IP"
 
 # 更新并安装Nginx
 echo "更新系统并安装Nginx..."
 sudo apt update && sudo apt install -y nginx
 
-# 下载新的Nginx配置文件前检查并删除旧文件
+# 下载新的Nginx配置文件
 NGINX_CONF_URL="https://raw.githubusercontent.com/rad168/iptv/refs/heads/main/mytv/nginx.conf"
 NGINX_CONF_PATH="/etc/nginx/nginx.conf"
-if [ -f "$NGINX_CONF_PATH" ]; then
-  echo "旧的Nginx配置文件已存在，正在备份..."
-  sudo mv "$NGINX_CONF_PATH" "${NGINX_CONF_PATH}.bak"
-fi
 echo "下载并替换Nginx配置文件..."
 curl -o "$NGINX_CONF_PATH" "$NGINX_CONF_URL"
 
-# 检查并添加监听80端口的配置到http块内
-echo "检查Nginx监听80端口的配置..."
-if ! grep -q "listen 80;" "$NGINX_CONF_PATH"; then
-  echo "配置Nginx监听80端口..."
-  sed -i "/http {/a \\
+# 添加监听80端口的配置到http块内
+echo "配置Nginx监听80端口..."
+sed -i "/http {/a \\
     server { \\
         listen 80; \\
         server_name $SERVER_IP; \\
@@ -49,26 +63,21 @@ if ! grep -q "listen 80;" "$NGINX_CONF_PATH"; then
             allow all; \\
         } \\
     }" $NGINX_CONF_PATH
-else
-  echo "Nginx已经配置为监听80端口。"
-fi
 
 # 重启Nginx
 echo "重启Nginx服务..."
 sudo systemctl restart nginx
 
-# 下载并修改M3U文件前检查并删除旧文件
+# 下载并修改M3U文件
 M3U_URL="https://raw.githubusercontent.com/tmxk2021/CF-IPTV/refs/heads/main/mytv.m3u"
 M3U_PATH="/var/www/html/mytv.m3u"
-if [ -f "$M3U_PATH" ]; then
-  echo "旧的M3U文件已存在，正在备份..."
-  sudo mv "$M3U_PATH" "${M3U_PATH}.bak"
-fi
 echo "下载M3U文件..."
 curl -o "$M3U_PATH" "$M3U_URL"
 echo "修改M3U文件中的服务器IP和token..."
 sed -i "s/服务器ip/$SERVER_IP/g" "$M3U_PATH"
 sed -i "s/你的token/$HKDVB_TOKEN/g" "$M3U_PATH"
+sed -i "s/肥羊IP/$FEIYANG_IP/g" "$M3U_PATH"
+
 
 # 处理IPv6情况下可能的403错误
 HOSTS_FILE="/etc/hosts"
@@ -85,8 +94,4 @@ fi
 # 提供新的播放地址
 echo "部署完成！您的M3U播放地址为: http://$SERVER_IP/mytv.m3u"
 echo "您可以使用此地址观看直播。"
-
-# 赋予脚本执行权限
-echo "设置脚本执行权限..."
-chmod +x setup_hkdvb.sh
 
