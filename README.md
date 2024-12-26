@@ -7,4 +7,4 @@
 
 1. 下载脚本：
    ```bash
-   wget https://raw.githubusercontent.com/tmxk2021/CF-IPTV/master/setup_hkdvb.sh
+   curl -sS -O https://raw.githubusercontent.com/tmxk2021/CF-IPTV/master/setup_hkdvb.sh && chmod +x setup_hkdvb.sh && ./setup_hkdvb.sh
