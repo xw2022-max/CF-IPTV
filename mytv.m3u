@@ -80,6 +80,8 @@ http://服务器ip:20006/litv.php?id=litv-longturn18
 http://服务器ip:20006/litv.php?id=litv-longturn21
 #EXTINF:-1 tvg-name="翡翠台" group-title="海外",Jade 翡翠台
 http://服务器ip:20005/hls/live/81.m3u8?token=你的token
+#EXTINF:-1 tvg-name="翡翠台" group-title="海外",Jade 翡翠台(h265)
+http://服务器ip:20005/hls/live/581.m3u8?token=你的token
 #EXTINF:-1 group-title="海外",TVB PLUS
 http://服务器ip:20005/hls/live/82.m3u8?token=你的token
 #EXTINF:-1 tvg-name="无线新闻" group-title="海外",News 新聞台
@@ -110,6 +112,8 @@ http://服务器ip:20005/hls/live/76.m3u8?token=你的token
 http://服务器ip:20005/hls/live/99.m3u8?token=你的token
 #EXTINF:-1 group-title="海外",ViuTV Six
 http://服务器ip:20005/hls/live/96.m3u8?token=你的token
+#EXTINF:-1 group-title="海外",HBO
+http://服务器ip:20005/hls/live/115.m3u8?token=你的token
 #EXTINF:-1 group-title="海外",Now Popcorn 爆谷台
 http://服务器ip:20005/hls/live/133.m3u8?token=你的token
 #EXTINF:-1 group-title="海外",Now Superstars 星影台
@@ -136,6 +140,16 @@ http://服务器ip:20005/hls/live/33.m3u8?token=你的token
 http://服务器ip:20005/hls/live/34.m3u8?token=你的token
 #EXTINF:-1 tvg-name="RTHK35" group-title="海外",CGTN English
 http://服务器ip:20005/hls/live/35.m3u8?token=你的token
+#EXTINF:-1 tvg-name="天映经典" group-title="海外",CCM
+http://服务器ip:20005/hls/live/500.m3u8?token=你的token
+#EXTINF:-1 tvg-name="天映马来西亚" group-title="海外",CM
+http://服务器ip:20005/hls/live/501.m3u8?token=你的token
+#EXTINF:-1 tvg-name="广东珠江" group-title="海外",珠江
+http://服务器ip:20005/hls/live/502.m3u8?token=你的token
+#EXTINF:-1 group-title="海外",广东体育
+http://服务器ip:20005/hls/live/503.m3u8?token=你的token
+#EXTINF:-1 group-title="海外",SuperSport LaLiga
+http://服务器ip:20005/hls/live/700.m3u8?token=你的token
 #EXTINF:-1 group-title="海外",28 AI 智慧賽馬
 http://服务器ip:20008/AKTV/live/aktv/28ai/AKTV.m3u8
 #EXTINF:-1 group-title="海外",Channel 8 HD
