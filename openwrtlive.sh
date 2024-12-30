@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# 自动化配置Nginx并设置HKDVB直播源
+# 自动化配置Nginx并设置直播源(Openwrt)
 set -e
 
 CONFIG_FILE="/etc/setup_hkdvb.conf"
@@ -55,7 +55,7 @@ echo "FEIYANG_IP: $FEIYANG_IP"
 echo "检查Nginx是否已安装..."
 if ! command -v nginx &> /dev/null; then
   echo "Nginx未安装，开始安装..."
-  opkg update && opkg install nginx
+  opkg update; opkg install nginx
 else
   echo "Nginx已安装，跳过安装步骤。"
 fi
