@@ -1,0 +1,47 @@
+#!/bin/sh /etc/rc.common
+
+# 说明: allinone 服务管理脚本
+# 使用: /etc/init.d/allinone {start|stop|restart|status}
+
+START=99  # 启动优先级
+STOP=10   # 停止优先级
+
+SERVICE_NAME="allinone"
+SERVICE_BINARY="/tmp/allinone/allinone_linux_arm64"
+PID_FILE="/var/run/$SERVICE_NAME.pid"
+
+start() {
+    echo "正在启动 $SERVICE_NAME 服务..."
+    if [ -f "$PID_FILE" ] && kill -0 $(cat "$PID_FILE") 2>/dev/null; then
+        echo "$SERVICE_NAME 已经运行，PID: $(cat $PID_FILE)"
+    else
+        nohup "$SERVICE_BINARY" > /dev/null 2>&1 &
+        echo $! > "$PID_FILE"
+        echo "$SERVICE_NAME 启动完成，PID: $(cat $PID_FILE)"
+    fi
+}
+
+stop() {
+    echo "正在停止 $SERVICE_NAME 服务..."
+    if [ -f "$PID_FILE" ] && kill -0 $(cat "$PID_FILE") 2>/dev/null; then
+        kill $(cat "$PID_FILE")
+        rm -f "$PID_FILE"
+        echo "$SERVICE_NAME 已停止"
+    else
+        echo "$SERVICE_NAME 未运行"
+    fi
+}
+
+restart() {
+    echo "正在重启 $SERVICE_NAME 服务..."
+    stop
+    start
+}
+
+status() {
+    if [ -f "$PID_FILE" ] && kill -0 $(cat "$PID_FILE") 2>/dev/null; then
+        echo "$SERVICE_NAME 正在运行，PID: $(cat $PID_FILE)"
+    else
+        echo "$SERVICE_NAME 未运行"
+    fi
+}
